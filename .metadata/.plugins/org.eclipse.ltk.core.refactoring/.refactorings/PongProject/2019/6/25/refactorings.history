@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;Run.java&apos; to &apos;PongProject/src/run&apos;&#x0D;&#x0A;- Original project: &apos;PongProject&apos;&#x0D;&#x0A;- Destination element: &apos;PongProject/src/run&apos;&#x0D;&#x0A;- Original element: &apos;Run.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;run" element1="/src&lt;{Run.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1561132652379" units="1" version="1.0"/>
+</session>
