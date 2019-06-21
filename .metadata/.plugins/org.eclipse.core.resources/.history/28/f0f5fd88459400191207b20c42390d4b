@@ -8,8 +8,7 @@ public class Run {
 		
 		GameWindow test = new GameWindow();
 		test.CreateWindow();
-		
-		System.out.println("Test");
+
 	}
 
 }
