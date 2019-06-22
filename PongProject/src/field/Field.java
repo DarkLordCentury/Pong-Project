@@ -6,6 +6,7 @@ import java.util.List;
 import gameObjects.BallObject;
 import gameObjects.MovingObject;
 import gameObjects.PlayerObject;
+import gameObjects.PlayerObject.PLAYER_INDEX;
 
 public class Field {
 	
@@ -19,9 +20,9 @@ public class Field {
 	
 	public Field()
 	{
-		firstPlayer = new PlayerObject();
+		firstPlayer = new PlayerObject(PLAYER_INDEX.FIRST_PLAYER);
 		firstPlayer.setPosition(10, (HEIGHT / 2) - (firstPlayer.getHeight() / 2));
-		secondPlayer = new PlayerObject();
+		secondPlayer = new PlayerObject(PLAYER_INDEX.SECOND_PLAYER);
 		secondPlayer.setPosition(WIDTH - 10 - secondPlayer.getWidth(), (HEIGHT / 2) - (secondPlayer.getHeight() / 2));
 		ball = new BallObject();
 		ball.setPosition((WIDTH / 2) - (ball.getWidth() / 2), (HEIGHT / 2) - (ball.getWidth() / 2));

@@ -43,7 +43,7 @@ public class GameController{
 		{	
 			
 			
-			//Delays the game by the desired time to ensure the desired fps
+			//Delays the game by the desired time to ensure the desired FPS
 			long waitTime = desiredDelay - (System.currentTimeMillis() - lastTime);
 			try { Thread.sleep(waitTime); } catch(Exception e) { e.printStackTrace(); }
 			lastTime = System.currentTimeMillis();
