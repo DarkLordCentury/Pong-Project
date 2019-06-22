@@ -1,13 +1,13 @@
 package run;
 
-import ui.GameWindow;
+import controllers.GameController;
 
 public class Run {
 
 	public static void main(String[] args) {
 		
-		GameWindow test = new GameWindow();
-		test.CreateWindow();
+		GameController test = new GameController();
+		test.PlayPong();
 		
 		System.out.println("Test");
 	}
