@@ -9,15 +9,20 @@ public class GameController{
 	private static GameController INSTANCE;
 	
 	//Game objects and window
-	GameWindow gameWindow;
-	Field field;
+	private GameWindow gameWindow;
+	private Field field;
+	
+	//Controllers
+	GraphicsController graphics;
 	
 	//Thread and loop used for logic
-	Thread gameThread;
+	private Thread gameThread;
 	
 	public GameController()
 	{
 		INSTANCE = this;
+		
+		graphics = new GraphicsController();
 	}
 	
 	public void playPong()
@@ -41,7 +46,8 @@ public class GameController{
 		
 		while(isRunning)
 		{	
-			
+			//Display Graphics
+			graphics.render(gameWindow.getGameWindow(), field);
 			
 			//Delays the game by the desired time to ensure the desired FPS
 			long waitTime = desiredDelay - (System.currentTimeMillis() - lastTime);

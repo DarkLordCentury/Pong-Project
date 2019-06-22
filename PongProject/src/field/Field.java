@@ -12,6 +12,7 @@ public class Field {
 	
 	static final int WIDTH = 800;
 	static final int HEIGHT = 600;
+	static final int PLAYER_X_OFFSET = 100;
 	
 	PlayerObject firstPlayer;
 	PlayerObject secondPlayer;
@@ -21,9 +22,9 @@ public class Field {
 	public Field()
 	{
 		firstPlayer = new PlayerObject(PLAYER_INDEX.FIRST_PLAYER);
-		firstPlayer.setPosition(10, (HEIGHT / 2) - (firstPlayer.getHeight() / 2));
+		firstPlayer.setPosition(PLAYER_X_OFFSET, (HEIGHT / 2) - (firstPlayer.getHeight() / 2));
 		secondPlayer = new PlayerObject(PLAYER_INDEX.SECOND_PLAYER);
-		secondPlayer.setPosition(WIDTH - 10 - secondPlayer.getWidth(), (HEIGHT / 2) - (secondPlayer.getHeight() / 2));
+		secondPlayer.setPosition(WIDTH - PLAYER_X_OFFSET - secondPlayer.getWidth(), (HEIGHT / 2) - (secondPlayer.getHeight() / 2));
 		ball = new BallObject();
 		ball.setPosition((WIDTH / 2) - (ball.getWidth() / 2), (HEIGHT / 2) - (ball.getWidth() / 2));
 		
@@ -39,7 +40,7 @@ public class Field {
 	
 	public PlayerObject getFirstPlayer() { return firstPlayer; }
 	public PlayerObject getSecondPlayer() { return secondPlayer; }
-	public BallObject fetBall() { return ball; }
+	public BallObject getBall() { return ball; }
 	public List<MovingObject> getAllObjects() { return movingObjects; }
 
 }

@@ -1,15 +1,15 @@
 package ui;
 
-import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GameWindow {
 	
 	private static JFrame GAME_WINDOW;
-	private static Canvas CURR_CANVAS;
+	private static JPanel CURR_CANVAS;
 	
 	public void CreateWindow()
 	{
@@ -20,7 +20,7 @@ public class GameWindow {
 		//Create and set up the window
 		GAME_WINDOW = new JFrame("Pong");
 		
-		GAME_WINDOW.setSize(new Dimension(1000, 600));
+		GAME_WINDOW.setSize(new Dimension(800, 600));
 		
 		GAME_WINDOW.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -35,11 +35,11 @@ public class GameWindow {
 		if(CURR_CANVAS != null)
 			GAME_WINDOW.remove(CURR_CANVAS);
 		
-		CURR_CANVAS = new GameCanvas();
+		CURR_CANVAS = new GamePanel();
 		GAME_WINDOW.add(CURR_CANVAS);
 	}
 	
 	public JFrame getGameWindow() { return GAME_WINDOW; }
-	public Canvas getCurrCanvas() { return CURR_CANVAS; }
+	public JPanel getCurrCanvas() { return CURR_CANVAS; }
 	
 }

@@ -9,8 +9,8 @@ public class PlayerObject extends MovingObject{
 	}
 	
 	//Player Size
-	static final int WIDTH = 4;
-	static final int HEIGHT = 10;
+	static final int WIDTH = 8;
+	static final int HEIGHT = 50;
 	//Player Movement Speed
 	static final int SPEED = 1;
 	
