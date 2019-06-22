@@ -8,19 +8,14 @@ public class PlayerObject extends MovingObject{
 	//Player Movement Speed
 	static final int SPEED = 1;
 	
-	/**
-	 * Player object constructor
-	 * @param _x The x position of the player
-	 * @param _y The y position of the player
-	 */
-	public PlayerObject(int _x, int _y) 
+	public PlayerObject() 
 	{
-		super(_x, _y, WIDTH, HEIGHT);
+		super(WIDTH, HEIGHT);
 	}
 	
 	//Sets the player's velocity
-	public void MoveUp() { velocityY = -SPEED; }
-	public void MoveDown() { velocityY = SPEED; }
-	public void Stop() { velocityY = 0; }
+	public void moveUp() { velocityY = -SPEED; }
+	public void moveDown() { velocityY = SPEED; }
+	public void stop() { velocityY = 0; }
 
 }

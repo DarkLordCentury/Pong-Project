@@ -7,7 +7,7 @@ public class Run {
 	public static void main(String[] args) {
 		
 		GameController test = new GameController();
-		test.PlayPong();
+		test.playPong();
 		
 		System.out.println("Test");
 	}
