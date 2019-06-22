@@ -47,19 +47,6 @@ public abstract class MovingObject {
 		return this.GetRectangle().intersects(_target.GetRectangle());
 	}
 	
-	/**
-	 * Checks if object is above the desired y position
-	 * @param _upperBound The desired y position
-	 * @return True if object's y is less than desired position
-	 */
-	public boolean isAbove(int _upperBound) { return y < _upperBound; }
-	/**
-	 * Checks if object is below the desired y position
-	 * @param _upperBound The desired y position
-	 * @return True if object's y is greater than desired position
-	 */
-	public boolean isBelow(int _lowerBound) { return y > _lowerBound; }
-	
 	//Getters
 	public int GetX() { return x; }
 	public int GetY() { return y; }
