@@ -39,7 +39,8 @@ public class GameWindow {
 		GAME_WINDOW.add(CURR_CANVAS);
 	}
 	
+	//Getters
 	public JFrame getGameWindow() { return GAME_WINDOW; }
-	public JPanel getCurrCanvas() { return CURR_CANVAS; }
+	public JPanel getCurrPanel() { return CURR_CANVAS; }
 	
 }

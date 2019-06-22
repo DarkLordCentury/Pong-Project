@@ -14,6 +14,8 @@ public class GameController{
 	
 	//Controllers
 	GraphicsController graphics;
+	InputController input;
+	LogicController logic;
 	
 	//Thread and loop used for logic
 	private Thread gameThread;
@@ -23,6 +25,8 @@ public class GameController{
 		INSTANCE = this;
 		
 		graphics = new GraphicsController();
+		input = new InputController();
+		logic = new LogicController();
 	}
 	
 	public void playPong()
@@ -31,6 +35,7 @@ public class GameController{
 		
 		gameWindow = new GameWindow();
 		gameWindow.startPongGame();
+		gameWindow.getGameWindow().addKeyListener(input);
 		
 		startThread();
 	}
@@ -48,6 +53,7 @@ public class GameController{
 		{	
 			//Display Graphics
 			graphics.render(gameWindow.getGameWindow(), field);
+			logic.DoLogic(field, input.getPressedKeys());
 			
 			//Delays the game by the desired time to ensure the desired FPS
 			long waitTime = desiredDelay - (System.currentTimeMillis() - lastTime);
