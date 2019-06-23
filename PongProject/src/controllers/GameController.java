@@ -1,6 +1,6 @@
 package controllers;
 
-import field.Field;
+import field.GameField;
 import ui.GameWindow;
 
 public class GameController{
@@ -10,7 +10,7 @@ public class GameController{
 	
 	//Game objects and window
 	private GameWindow gameWindow;
-	private Field field;
+	private GameField field;
 	
 	//Controllers
 	GraphicsController graphics;
@@ -31,7 +31,7 @@ public class GameController{
 	
 	public void playPong()
 	{
-		field = new Field();
+		field = new GameField();
 		
 		gameWindow = new GameWindow();
 		gameWindow.startPongGame();
@@ -79,5 +79,5 @@ public class GameController{
 	
 	public static GameController getInstance() { return INSTANCE; }
 	
-	public Field getField() { return field; }
+	public GameField getField() { return field; }
 }

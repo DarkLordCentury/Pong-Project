@@ -21,7 +21,7 @@ public class InputController implements KeyListener{
 		if(!pressed.contains(_k.getKeyCode()))
 			pressed.add(_k.getKeyCode());
 		
-		System.out.println(_k.getKeyCode());
+		//System.out.println(_k.getKeyCode());
 	}
 
 	@Override

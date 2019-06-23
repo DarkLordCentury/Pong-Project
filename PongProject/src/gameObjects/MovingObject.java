@@ -45,6 +45,19 @@ public abstract class MovingObject {
 		return this.getRectangle().intersects(_target.getRectangle());
 	}
 	
+	/**
+	 * Checks if object is above y position
+	 * @param _y The desired y position
+	 * @return True if object is above y position
+	 */
+	public boolean isAbove(int _y) { return y <= _y; }
+	/**
+	 * Checks if object is below y position
+	 * @param _y The desired y position
+	 * @return True if object is below y position
+	 */
+	public boolean isBelow(int _y) { return y + height >= _y; }
+	
 	//Getters
 	public int getX() { return x; }
 	public int getY() { return y; }

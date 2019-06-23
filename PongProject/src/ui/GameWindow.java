@@ -20,7 +20,7 @@ public class GameWindow {
 		//Create and set up the window
 		GAME_WINDOW = new JFrame("Pong");
 		
-		GAME_WINDOW.setSize(new Dimension(800, 600));
+		GAME_WINDOW.setSize(new Dimension(800, 650));
 		
 		GAME_WINDOW.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
