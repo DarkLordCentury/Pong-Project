@@ -10,6 +10,8 @@ public abstract class MovingObject {
 	protected int width, height;
 	//The current velocity of the object
 	protected int velocityX, velocityY;
+	//Determines whether or not the object is visible to the user
+	protected boolean isVisible;
 	
 	/**
 	 * Constructor for moving object
@@ -24,6 +26,7 @@ public abstract class MovingObject {
 		y = 0;
 		velocityX = 0;
 		velocityY = 0;
+		isVisible = true;
 	}
 	
 	/**
@@ -65,6 +68,7 @@ public abstract class MovingObject {
 	public int getHeight() { return height; }
 	public int getVelocityX() { return velocityX; }
 	public int getVelocityY() { return velocityY; }
+	public boolean isVisible() { return isVisible; }
 	//Returns the rectangle used for collision detection
 	public Rectangle getRectangle() { return new Rectangle(x, y, width, height); }
 	
@@ -73,4 +77,5 @@ public abstract class MovingObject {
 	public void setVelocityX(int _velocityX) { velocityX = _velocityX; }
 	public void setVelocityY(int _velocityY) { velocityY = _velocityY; }
 	public void setVelocity(int _velocityX, int _velocityY) { velocityX = _velocityX; velocityY = _velocityY; }
+	public void setVisible(boolean _isVisible) { isVisible = _isVisible; }
 }

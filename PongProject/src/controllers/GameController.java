@@ -59,7 +59,7 @@ public class GameController{
 			long waitTime = desiredDelay - (System.currentTimeMillis() - lastTime);
 			try { Thread.sleep(waitTime); } catch(Exception e) { e.printStackTrace(); }
 			lastTime = System.currentTimeMillis();
-			System.out.println(waitTime);
+			//System.out.println(waitTime);
 		}
 	}
 	

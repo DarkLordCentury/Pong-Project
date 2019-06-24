@@ -16,6 +16,8 @@ public class PlayerObject extends MovingObject{
 	
 	//Dictates whether it is the first or second player
 	private PLAYER_INDEX playerIndex;
+	//The players score
+	private int score;
 	
 	/**
 	 * Constructor for player object
@@ -26,6 +28,7 @@ public class PlayerObject extends MovingObject{
 		super(WIDTH, HEIGHT);
 		
 		playerIndex = _playerIndex;
+		score = 0;
 	}
 	
 	//Sets the player's velocity
@@ -33,6 +36,10 @@ public class PlayerObject extends MovingObject{
 	public void moveDown() { velocityY = SPEED; }
 	public void stop() { velocityY = 0; }
 	
+	//Alter the score by the desired amount
+	public void alterScore(int _amount) { score += _amount; }
+	
 	//Getters
 	public PLAYER_INDEX getPlayerIndex() { return playerIndex; }
+	public int getScore() { return score; }
 }

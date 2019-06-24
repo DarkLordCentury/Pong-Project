@@ -27,7 +27,7 @@ public class GameField {
 		secondPlayer.setPosition(WIDTH - PLAYER_X_OFFSET - secondPlayer.getWidth(), (HEIGHT / 2) - (secondPlayer.getHeight() / 2));
 		ball = new BallObject();
 		ball.setPosition((WIDTH / 2) - (ball.getWidth() / 2), (HEIGHT / 2) - (ball.getWidth() / 2));
-		ball.SetToDegree(270);
+		ball.setToDegree(270);
 		
 		movingObjects = new ArrayList<MovingObject>();
 		movingObjects.add(firstPlayer);

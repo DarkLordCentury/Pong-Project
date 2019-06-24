@@ -12,6 +12,19 @@ public class BallObject extends MovingObject{
 		super(WIDTH, HEIGHT);
 	}
 	
+	/**
+	 * Checks if ball is to the right of the desired x position
+	 * @param _x The desired x position
+	 * @return True if the ball is to the right of the x position
+	 */
+	public boolean isRightOf(int _x) { return x > _x; }
+	/**
+	 * Checks if ball is to the left of the desired x position
+	 * @param _x The desired x position
+	 * @return True if the ball is to the left of the x position
+	 */
+	public boolean isLeftOf(int _x) { return (x - WIDTH) < _x; }
+	
 	/**If the ball is going down make it go up*/
 	public void bounceUp() { if(velocityY > 0) velocityY = -velocityY; }
 	/**If the ball is going up make it go down*/
@@ -29,7 +42,7 @@ public class BallObject extends MovingObject{
 		double collisionPercent = (double) collisionSize / collisionPossibilitySize;
 		
 		//The max degree the ball's direction will be for one half
-		int degreeMax = 75;
+		int degreeMax = 50;
 		int degreePossibility = degreeMax * 2;
 		int desiredDegree = (int) (degreePossibility * collisionPercent) + (90 - degreeMax);
 		
@@ -37,14 +50,14 @@ public class BallObject extends MovingObject{
 		if(_player.getPlayerIndex() == PLAYER_INDEX.SECOND_PLAYER)
 			desiredDegree = 360 - desiredDegree;
 		
-		SetToDegree(desiredDegree);
+		setToDegree(desiredDegree);
 	}
 	
 	/**
 	 * Sets the ball's velocity according to its speed and the desired angle
 	 * @param _angle The desired angle in degrees from the north bearing
 	 */
-	public void SetToDegree(int _angle)
+	public void setToDegree(int _angle)
 	{
 		double radians = Math.toRadians(_angle);
 		double sin = SPEED * Math.sin(radians);
