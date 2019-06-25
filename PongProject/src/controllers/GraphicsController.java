@@ -12,8 +12,8 @@ import ui.GameWindow;
 
 public class GraphicsController {
 	
-	//Universal offset form the top
-	static final int UNIVERSAL_TOP_OFFSET = 30;
+	//Height of top and bottom border
+	static final int BORDER_HEIGHT = 4;
 	
 	//Values for white line separating the two sides
 	static final int MIDDLE_BOX_WIDTH = 4;
@@ -25,9 +25,6 @@ public class GraphicsController {
 	static final int FONT_MIDDLE_OFFSET = 10;
 	static final int FONT_SIZE = 80;
 	static final Font FONT = new Font(Font.MONOSPACED, Font.BOLD, FONT_SIZE);
-	
-	//Window Resizing Values
-	
 	
 	public void render(GameWindow _gameWindow, GameField _field)
 	{
@@ -44,35 +41,43 @@ public class GraphicsController {
 	
 	private void draw(GameWindow _gameWindow, Graphics2D _g, GameField _field)
 	{
-		drawBackground(_gameWindow, _g);
+		drawBackground(_gameWindow, _g, _field);
 		
-		drawScore(_gameWindow, _g, _field.getFirstPlayer(), _field.getSecondPlayer());
+		drawScore(_gameWindow, _g, _field);
 		
 		for(MovingObject moving : _field.getAllObjects())
 			drawMovingObject(_gameWindow, _g, _field, moving);
 	}
 	
-	private void drawBackground(GameWindow _gameWindow, Graphics2D _g)
+	private void drawBackground(GameWindow _gameWindow, Graphics2D _g, GameField _field)
 	{
 		//Colors Background
 		_g.setColor(Color.BLACK);
 		_g.fillRect(0, 0, _gameWindow.getWidth(), _gameWindow.getHeight());
 		
+		int topBorderY = ((_gameWindow.getHeight() - _field.getHeight()) / 2) - BORDER_HEIGHT;
+		int bottomBorderY = _gameWindow.getHeight() - ((_gameWindow.getHeight() - _field.getHeight()) / 2) + BORDER_HEIGHT;
 		_g.setColor(Color.WHITE);
-		for(int y = 0; y < _gameWindow.getHeight(); y += MIDDLE_BOX_HEIGHT + MIDDLE_BOX_SPACING)
+		//Top Border
+		_g.fillRect(0, topBorderY, _gameWindow.getWidth(), BORDER_HEIGHT);
+		//Bottom Border
+		_g.fillRect(0, bottomBorderY, _gameWindow.getWidth(), BORDER_HEIGHT);
+		
+		_g.setColor(Color.WHITE);
+		for(int y = topBorderY; y < bottomBorderY; y += MIDDLE_BOX_HEIGHT + MIDDLE_BOX_SPACING)
 			_g.fillRect(_gameWindow.getMiddleX() - (MIDDLE_BOX_WIDTH / 2), y, MIDDLE_BOX_WIDTH, MIDDLE_BOX_HEIGHT);
 	}
 	
-	private void drawScore(GameWindow _gameWindow, Graphics2D _g, PlayerObject _player1, PlayerObject _player2)
+	private void drawScore(GameWindow _gameWindow, Graphics2D _g, GameField _field)
 	{
 		_g.setColor(Color.DARK_GRAY);
 		_g.setFont(FONT);
 		
-		String s1Score = "" + _player1.getScore();
-		_g.drawString(s1Score, _gameWindow.getMiddleX() - FONT_MIDDLE_OFFSET - _g.getFontMetrics().stringWidth(s1Score), UNIVERSAL_TOP_OFFSET + FONT_TOP_OFFSET);
+		String s1Score = "" + _field.getFirstPlayer().getScore();
+		_g.drawString(s1Score, _gameWindow.getMiddleX() - FONT_MIDDLE_OFFSET - _g.getFontMetrics().stringWidth(s1Score),FONT_TOP_OFFSET + ((_gameWindow.getHeight() - _field.getHeight()) / 2));
 
-		String s2Score = "" + _player2.getScore();
-		_g.drawString(s2Score, _gameWindow.getMiddleX() + FONT_MIDDLE_OFFSET, UNIVERSAL_TOP_OFFSET + FONT_TOP_OFFSET);
+		String s2Score = "" + _field.getSecondPlayer().getScore();
+		_g.drawString(s2Score, _gameWindow.getMiddleX() + FONT_MIDDLE_OFFSET, FONT_TOP_OFFSET + ((_gameWindow.getHeight() - _field.getHeight()) / 2));
 	}
 	
 	private void drawMovingObject(GameWindow _gameWindow, Graphics2D _g, GameField _field, MovingObject _object)
@@ -80,7 +85,7 @@ public class GraphicsController {
 		if(_object.isVisible())
 		{
 			_g.setColor(Color.WHITE);
-			_g.fillRect(_object.getX() + ((_gameWindow.getWidth() - _field.getWidth()) / 2), _object.getY() + UNIVERSAL_TOP_OFFSET + ((_gameWindow.getHeight() - _field.getHeight()) / 2), _object.getWidth(), _object.getHeight());
+			_g.fillRect(_object.getX() + ((_gameWindow.getWidth() - _field.getWidth()) / 2), _object.getY() + ((_gameWindow.getHeight() - _field.getHeight()) / 2), _object.getWidth(), _object.getHeight());
 		}
 	}
 	
