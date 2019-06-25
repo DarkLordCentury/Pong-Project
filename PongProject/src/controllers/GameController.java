@@ -17,6 +17,7 @@ public class GameController{
 	
 	//Game objects and window
 	private GameWindow gameWindow;
+	private GAME_SCREEN currentGameScreen;
 	private GameField field;
 	
 	//Controllers
@@ -33,6 +34,7 @@ public class GameController{
 			INSTANCE.gameWindow.dispatchEvent(new WindowEvent(INSTANCE.gameWindow, WindowEvent.WINDOW_CLOSING));
 		
 		INSTANCE = this;
+		currentGameScreen = GAME_SCREEN.GAME;
 		
 		graphics = new GraphicsController();
 		input = new InputController();
@@ -63,7 +65,7 @@ public class GameController{
 		{	
 			//Display Graphics
 			graphics.render(gameWindow, field);
-			logic.DoLogic(field, input.getPressedKeys());
+			logic.doLogic(currentGameScreen, field, input.getPressedKeys());
 			
 			//Delays the game by the desired time to ensure the desired FPS
 			long waitTime = desiredDelay - (System.currentTimeMillis() - lastTime);

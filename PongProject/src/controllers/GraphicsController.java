@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 import field.GameField;
 import gameObjects.MovingObject;
-import gameObjects.PlayerObject;
 import ui.GameWindow;
 
 public class GraphicsController {
