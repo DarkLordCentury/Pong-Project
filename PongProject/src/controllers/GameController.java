@@ -2,7 +2,7 @@ package controllers;
 
 import java.awt.event.WindowEvent;
 
-import field.GameField;
+import gameObjects.GameField;
 import ui.GameWindow;
 
 public class GameController{

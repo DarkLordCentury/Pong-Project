@@ -1,11 +1,8 @@
-package field;
+package gameObjects;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gameObjects.BallObject;
-import gameObjects.MovingObject;
-import gameObjects.PlayerObject;
 import gameObjects.PlayerObject.PLAYER_INDEX;
 
 public class GameField {

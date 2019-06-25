@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import field.GameField;
+import gameObjects.GameField;
 import gameObjects.MovingObject;
 import ui.GameWindow;
 

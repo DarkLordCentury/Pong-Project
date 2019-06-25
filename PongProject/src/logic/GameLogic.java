@@ -3,14 +3,13 @@ package logic;
 import java.util.Random;
 import java.util.Set;
 
-import controllers.GameController.GAME_SCREEN;
-import field.GameField;
 import gameObjects.BallObject;
+import gameObjects.GameField;
 import gameObjects.MovingObject;
 import gameObjects.PlayerObject;
 import gameObjects.PlayerObject.PLAYER_INDEX;
 
-public class GameLogic extends Logic{
+public class GameLogic implements Logic{
 
 	//When the ball resets and is given a random velocity, this is the max degree of its random velocity within one quadrant
 	private final int BALL_RESET_DEGREE_MAX = 50;
@@ -22,10 +21,6 @@ public class GameLogic extends Logic{
 	private long ballResetStartTime;
 	//Holds the player that scored last (if this is null the ball has already been reset)
 	private PlayerObject lastScoringPlayer;
-	
-	public GameLogic() {
-		super(GAME_SCREEN.GAME);
-	}
 	
 	public void logic(GameField _field, Set<Integer> _inputs)
 	{
