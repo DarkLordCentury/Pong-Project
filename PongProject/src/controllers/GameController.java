@@ -1,9 +1,16 @@
 package controllers;
 
+import java.awt.event.WindowEvent;
+
 import field.GameField;
 import ui.GameWindow;
 
 public class GameController{
+	
+	public enum GAME_SCREEN
+	{
+		MENU, GAME, WINNING_SCREEN
+	}
 	
 	//GameController singleton
 	private static GameController INSTANCE;
@@ -22,6 +29,9 @@ public class GameController{
 	
 	public GameController()
 	{
+		if(INSTANCE != null)
+			INSTANCE.gameWindow.dispatchEvent(new WindowEvent(INSTANCE.gameWindow, WindowEvent.WINDOW_CLOSING));
+		
 		INSTANCE = this;
 		
 		graphics = new GraphicsController();
@@ -34,8 +44,8 @@ public class GameController{
 		field = new GameField();
 		
 		gameWindow = new GameWindow();
-		gameWindow.startPongGame();
-		gameWindow.getGameWindow().addKeyListener(input);
+		gameWindow.addKeyListener(input);
+		gameWindow.setVisible(true);
 		
 		startThread();
 	}
@@ -52,12 +62,12 @@ public class GameController{
 		while(isRunning)
 		{	
 			//Display Graphics
-			graphics.render(gameWindow.getGameWindow(), field);
+			graphics.render(gameWindow, field);
 			logic.DoLogic(field, input.getPressedKeys());
 			
 			//Delays the game by the desired time to ensure the desired FPS
 			long waitTime = desiredDelay - (System.currentTimeMillis() - lastTime);
-			try { Thread.sleep(waitTime); } catch(Exception e) { e.printStackTrace(); }
+			try { if(waitTime > 0) Thread.sleep(waitTime); } catch(Exception e) { e.printStackTrace(); }
 			lastTime = System.currentTimeMillis();
 			//System.out.println(waitTime);
 		}

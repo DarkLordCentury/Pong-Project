@@ -27,6 +27,9 @@ public class GraphicsController {
 	static final int FONT_SIZE = 80;
 	static final Font FONT = new Font(Font.MONOSPACED, Font.BOLD, FONT_SIZE);
 	
+	//Window Resizing Values
+	
+	
 	public void render(JFrame _gameWindow, GameField _field)
 	{
 		Graphics2D g = null;
@@ -46,9 +49,8 @@ public class GraphicsController {
 		
 		drawScore(_gameWindow, _g, _field.getFirstPlayer(), _field.getSecondPlayer());
 		
-		drawMovingObject(_gameWindow, _g, _field.getFirstPlayer());
-		drawMovingObject(_gameWindow, _g, _field.getSecondPlayer());
-		drawMovingObject(_gameWindow, _g, _field.getBall());
+		for(MovingObject moving : _field.getAllObjects())
+			drawMovingObject(_gameWindow, _g, _field, moving);
 	}
 	
 	private void drawBackground(JFrame _gameWindow, Graphics2D _g)
@@ -74,12 +76,12 @@ public class GraphicsController {
 		_g.drawString(s2Score, (_gameWindow.getWidth() / 2) + FONT_MIDDLE_OFFSET, UNIVERSAL_TOP_OFFSET + FONT_TOP_OFFSET);
 	}
 	
-	private void drawMovingObject(JFrame _gameWindow, Graphics2D _g, MovingObject _object)
+	private void drawMovingObject(JFrame _gameWindow, Graphics2D _g, GameField _field, MovingObject _object)
 	{
 		if(_object.isVisible())
 		{
 			_g.setColor(Color.WHITE);
-			_g.fillRect(_object.getX(), _object.getY() + UNIVERSAL_TOP_OFFSET, _object.getWidth(), _object.getHeight());
+			_g.fillRect(_object.getX() + ((_gameWindow.getWidth() - _field.getWidth()) / 2), _object.getY() + UNIVERSAL_TOP_OFFSET + ((_gameWindow.getHeight() - _field.getHeight()) / 2), _object.getWidth(), _object.getHeight());
 		}
 	}
 	

@@ -1,46 +1,23 @@
 package ui;
 
 import java.awt.Dimension;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-public class GameWindow {
+public class GameWindow extends JFrame{
 	
-	private static JFrame GAME_WINDOW;
-	private static JPanel CURR_CANVAS;
+	private static final long serialVersionUID = 1407062426725680791L;
 	
-	public void CreateWindow()
+	public GameWindow()
 	{
-		//Closes game window if it already exists
-		if(GAME_WINDOW != null)
-			GAME_WINDOW.dispatchEvent(new WindowEvent(GAME_WINDOW, WindowEvent.WINDOW_CLOSING));
+		super();
 		
 		//Create and set up the window
-		GAME_WINDOW = new JFrame("Pong");
+		this.setTitle("Pong");
 		
-		GAME_WINDOW.setSize(new Dimension(800, 650));
+		this.setSize(new Dimension(800, 650));
 		
-		GAME_WINDOW.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		GAME_WINDOW.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	public void startPongGame()
-	{
-		//Ensure there is only one game window and one canvas
-		if(GAME_WINDOW == null)
-			CreateWindow();
-		if(CURR_CANVAS != null)
-			GAME_WINDOW.remove(CURR_CANVAS);
-		
-		CURR_CANVAS = new GamePanel();
-		GAME_WINDOW.add(CURR_CANVAS);
-	}
-	
-	//Getters
-	public JFrame getGameWindow() { return GAME_WINDOW; }
-	public JPanel getCurrPanel() { return CURR_CANVAS; }
 	
 }

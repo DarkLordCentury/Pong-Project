@@ -42,7 +42,7 @@ public class BallObject extends MovingObject{
 		double collisionPercent = (double) collisionSize / collisionPossibilitySize;
 		
 		//The max degree the ball's direction will be for one half
-		int degreeMax = 50;
+		int degreeMax = 60;
 		int degreePossibility = degreeMax * 2;
 		int desiredDegree = (int) (degreePossibility * collisionPercent) + (90 - degreeMax);
 		
