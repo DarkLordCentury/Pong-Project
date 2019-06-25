@@ -10,7 +10,7 @@ import gameObjects.PlayerObject.PLAYER_INDEX;
 
 public class GameField {
 	
-	static final int WIDTH = 800;
+	static final int WIDTH = 1000;
 	static final int HEIGHT = 600;
 	static final int PLAYER_X_OFFSET = 100;
 	

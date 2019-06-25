@@ -5,11 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JFrame;
-
 import field.GameField;
 import gameObjects.MovingObject;
 import gameObjects.PlayerObject;
+import ui.GameWindow;
 
 public class GraphicsController {
 	
@@ -30,7 +29,7 @@ public class GraphicsController {
 	//Window Resizing Values
 	
 	
-	public void render(JFrame _gameWindow, GameField _field)
+	public void render(GameWindow _gameWindow, GameField _field)
 	{
 		Graphics2D g = null;
 		BufferedImage bi = new BufferedImage(_gameWindow.getWidth(), _gameWindow.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -43,7 +42,7 @@ public class GraphicsController {
 		finally { _gameWindow.getGraphics().drawImage(bi, 0, 0, null); g.dispose(); }
 	}
 	
-	private void draw(JFrame _gameWindow, Graphics2D _g, GameField _field)
+	private void draw(GameWindow _gameWindow, Graphics2D _g, GameField _field)
 	{
 		drawBackground(_gameWindow, _g);
 		
@@ -53,7 +52,7 @@ public class GraphicsController {
 			drawMovingObject(_gameWindow, _g, _field, moving);
 	}
 	
-	private void drawBackground(JFrame _gameWindow, Graphics2D _g)
+	private void drawBackground(GameWindow _gameWindow, Graphics2D _g)
 	{
 		//Colors Background
 		_g.setColor(Color.BLACK);
@@ -61,22 +60,22 @@ public class GraphicsController {
 		
 		_g.setColor(Color.WHITE);
 		for(int y = 0; y < _gameWindow.getHeight(); y += MIDDLE_BOX_HEIGHT + MIDDLE_BOX_SPACING)
-			_g.fillRect((_gameWindow.getWidth() / 2) - (MIDDLE_BOX_WIDTH / 2), y, MIDDLE_BOX_WIDTH, MIDDLE_BOX_HEIGHT);
+			_g.fillRect(_gameWindow.getMiddleX() - (MIDDLE_BOX_WIDTH / 2), y, MIDDLE_BOX_WIDTH, MIDDLE_BOX_HEIGHT);
 	}
 	
-	private void drawScore(JFrame _gameWindow, Graphics2D _g, PlayerObject _player1, PlayerObject _player2)
+	private void drawScore(GameWindow _gameWindow, Graphics2D _g, PlayerObject _player1, PlayerObject _player2)
 	{
 		_g.setColor(Color.DARK_GRAY);
 		_g.setFont(FONT);
 		
 		String s1Score = "" + _player1.getScore();
-		_g.drawString(s1Score, (_gameWindow.getWidth() / 2) - FONT_MIDDLE_OFFSET - _g.getFontMetrics().stringWidth(s1Score), UNIVERSAL_TOP_OFFSET + FONT_TOP_OFFSET);
+		_g.drawString(s1Score, _gameWindow.getMiddleX() - FONT_MIDDLE_OFFSET - _g.getFontMetrics().stringWidth(s1Score), UNIVERSAL_TOP_OFFSET + FONT_TOP_OFFSET);
 
 		String s2Score = "" + _player2.getScore();
-		_g.drawString(s2Score, (_gameWindow.getWidth() / 2) + FONT_MIDDLE_OFFSET, UNIVERSAL_TOP_OFFSET + FONT_TOP_OFFSET);
+		_g.drawString(s2Score, _gameWindow.getMiddleX() + FONT_MIDDLE_OFFSET, UNIVERSAL_TOP_OFFSET + FONT_TOP_OFFSET);
 	}
 	
-	private void drawMovingObject(JFrame _gameWindow, Graphics2D _g, GameField _field, MovingObject _object)
+	private void drawMovingObject(GameWindow _gameWindow, Graphics2D _g, GameField _field, MovingObject _object)
 	{
 		if(_object.isVisible())
 		{
