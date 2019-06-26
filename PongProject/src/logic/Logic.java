@@ -1,8 +1,7 @@
 package logic;
 
-import java.util.Set;
-
-import gameObjects.GameField;
+import field.FieldHolder;
+import util.InputHolder;
 
 public interface Logic {
 	
@@ -11,7 +10,7 @@ public interface Logic {
 	 * @param _field The game field
 	 * @param _inputs The user inputs
 	 */
-	public abstract void logic(GameField _field, Set<Integer> _inputs);
+	public abstract void doLogic(FieldHolder _field, InputHolder _inputs);
 	
 	
 	

@@ -2,7 +2,7 @@ package controllers;
 
 import java.awt.event.WindowEvent;
 
-import gameObjects.GameField;
+import field.FieldHolder;
 import ui.GameWindow;
 
 public class GameController{
@@ -18,7 +18,10 @@ public class GameController{
 	//Game objects and window
 	private GameWindow gameWindow;
 	private GAME_SCREEN currentGameScreen;
-	private GameField field;
+	private FieldHolder field;
+	
+	//Variables used for running the game
+	boolean isRunning = true;
 	
 	//Controllers
 	GraphicsController graphics;
@@ -34,29 +37,45 @@ public class GameController{
 			INSTANCE.gameWindow.dispatchEvent(new WindowEvent(INSTANCE.gameWindow, WindowEvent.WINDOW_CLOSING));
 		
 		INSTANCE = this;
-		currentGameScreen = GAME_SCREEN.GAME;
-		
-		graphics = new GraphicsController();
-		input = new InputController();
-		logic = new LogicController();
+		currentGameScreen = GAME_SCREEN.MENU;
 	}
 	
 	public void playPong()
-	{
-		field = new GameField();
-		
+	{	
 		gameWindow = new GameWindow();
-		gameWindow.addKeyListener(input);
-		gameWindow.setVisible(true);
+		
+		field = new FieldHolder(gameWindow);
+		
+		graphics = new GraphicsController();
+		input = new InputController(gameWindow);
+		logic = new LogicController();
 		
 		startThread();
+	}
+	
+	/**Resets the field values and switches screens*/
+	public void setGameScreen(GAME_SCREEN _screen)
+	{
+		switch(_screen)
+		{
+		case MENU:
+			field.resetMenuField(gameWindow);
+			break;
+			
+		case GAME:
+			field.resetGameField();
+			break;
+			
+		default:
+			break;
+		}
+		
+		currentGameScreen = _screen;
 	}
 	
 	//Runs the game loop of the game
 	private void doGameLoop()
 	{
-		//Variables used for running the game
-		boolean isRunning = true;
 		long lastTime = System.currentTimeMillis();
 		int targetFPS = 30;
 		int desiredDelay = 1000 / targetFPS;
@@ -64,8 +83,9 @@ public class GameController{
 		while(isRunning)
 		{	
 			//Display Graphics
-			graphics.render(gameWindow, field);
-			logic.doLogic(currentGameScreen, field, input.getPressedKeys());
+			graphics.render(currentGameScreen, gameWindow, field);
+			logic.doLogic(currentGameScreen, field, input.getInputs());
+			input.resetInputs();
 			
 			//Delays the game by the desired time to ensure the desired FPS
 			long waitTime = desiredDelay - (System.currentTimeMillis() - lastTime);
@@ -92,5 +112,8 @@ public class GameController{
 	
 	public static GameController getInstance() { return INSTANCE; }
 	
-	public GameField getField() { return field; }
+	public GameWindow getGameWindow() { return gameWindow; }
+	public FieldHolder getField() { return field; }
+	
+	public void stopGame() { isRunning = false; }
 }

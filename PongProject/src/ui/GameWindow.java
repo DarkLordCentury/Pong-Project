@@ -15,10 +15,12 @@ public class GameWindow extends JFrame{
 		//Create and set up the window
 		this.setTitle("Pong");
 		
-		this.setSize(new Dimension(1000, 650));
-		this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		this.setSize(new Dimension(1000, 700));
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.setVisible(true);
+		this.setResizable(false);
 	}
 	
 	//Getters

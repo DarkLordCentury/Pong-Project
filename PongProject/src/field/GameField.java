@@ -1,8 +1,11 @@
-package gameObjects;
+package field;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import gameObjects.BallObject;
+import gameObjects.MovingObject;
+import gameObjects.PlayerObject;
 import gameObjects.PlayerObject.PLAYER_INDEX;
 
 public class GameField {
@@ -10,6 +13,8 @@ public class GameField {
 	static final int WIDTH = 1000;
 	static final int HEIGHT = 600;
 	static final int PLAYER_X_OFFSET = 100;
+	
+	static final int WINNING_SCORE = 4;
 	
 	PlayerObject firstPlayer;
 	PlayerObject secondPlayer;
@@ -40,5 +45,7 @@ public class GameField {
 	public PlayerObject getSecondPlayer() { return secondPlayer; }
 	public BallObject getBall() { return ball; }
 	public List<MovingObject> getAllObjects() { return movingObjects; }
+	
+	public static int getWinningScore() { return WINNING_SCORE; }
 
 }

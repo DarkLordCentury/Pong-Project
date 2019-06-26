@@ -3,11 +3,15 @@ package logic;
 import java.util.Random;
 import java.util.Set;
 
+import controllers.GameController;
+import controllers.GameController.GAME_SCREEN;
+import field.FieldHolder;
+import field.GameField;
 import gameObjects.BallObject;
-import gameObjects.GameField;
 import gameObjects.MovingObject;
 import gameObjects.PlayerObject;
 import gameObjects.PlayerObject.PLAYER_INDEX;
+import util.InputHolder;
 
 public class GameLogic implements Logic{
 
@@ -22,63 +26,68 @@ public class GameLogic implements Logic{
 	//Holds the player that scored last (if this is null the ball has already been reset)
 	private PlayerObject lastScoringPlayer;
 	
-	public void logic(GameField _field, Set<Integer> _inputs)
+	@Override
+	public void doLogic(FieldHolder _field, InputHolder _inputs)
 	{
-		checkPlayerInputs(_inputs, _field, _field.getFirstPlayer(), 87, 83);
-		checkPlayerInputs(_inputs, _field, _field.getSecondPlayer(), 38, 40);
+		GameField gameField = _field.getGameField();
 		
-		checkBallCollision(_field);
-		checkScore(_field);
-		checkResetBall(_field.getBall());
+		checkPlayerInputs(_inputs.getPressedKeys(), gameField, gameField.getFirstPlayer(), 87, 83);
+		checkPlayerInputs(_inputs.getPressedKeys(), gameField, gameField.getSecondPlayer(), 38, 40);
 		
-		for(MovingObject moving : _field.getAllObjects())
+		checkBallCollision(gameField);
+		checkScore(gameField);
+		checkResetBall(gameField.getBall());
+		
+		checkWinCondition(_field.getGameField());
+		
+		for(MovingObject moving : gameField.getAllObjects())
 			moving.move();
 	}
 	
-	private void checkPlayerInputs(Set<Integer> _inputs, GameField _field, PlayerObject _player, int _up, int _down)
+	private void checkPlayerInputs(Set<Integer> _inputs, GameField _gamefield, PlayerObject _player, int _up, int _down)
 	{
 		if(_inputs.contains(_up) && !_player.isAbove(0))
 			_player.moveUp();
-		else if(_inputs.contains(_down) && !_player.isBelow(_field.getHeight()))
+		else if(_inputs.contains(_down) && !_player.isBelow(_gamefield.getHeight()))
 			_player.moveDown();
 		else
 			_player.stop();
 	}
 	
-	private void checkBallCollision(GameField _field)
+	private void checkBallCollision(GameField _gamefield)
 	{
-		BallObject ball = _field.getBall();
+		BallObject ball = _gamefield.getBall();
 		//Checks if ball is colliding with players.
-		if(ball.isColliding(_field.getFirstPlayer()))
-			ball.bouncePlayer(_field.getFirstPlayer());
-		else if(ball.isColliding(_field.getSecondPlayer()))
-			ball.bouncePlayer(_field.getSecondPlayer());
+		if(ball.isColliding(_gamefield.getFirstPlayer()))
+			ball.bouncePlayer(_gamefield.getFirstPlayer());
+		else if(ball.isColliding(_gamefield.getSecondPlayer()))
+			ball.bouncePlayer(_gamefield.getSecondPlayer());
 		
 		//Checks if ball is hitting top and bottom limits
 		if(ball.isAbove(0))
 			ball.bounceDown();
-		else if (ball.isBelow(_field.getHeight()))
+		else if (ball.isBelow(_gamefield.getHeight()))
 			ball.bounceUp();
 	}
 	
-	private void checkScore(GameField _field)
+	private void checkScore(GameField _gamefield)
 	{
-		BallObject ball = _field.getBall();
+		BallObject ball = _gamefield.getBall();
 		
 		if(ball.isLeftOf(0))
-			startResetBall(_field, ball, _field.getSecondPlayer());
-		else if(ball.isRightOf(_field.getWidth()))
-			startResetBall(_field, ball, _field.getFirstPlayer());
+			startResetBall(_gamefield, ball, _gamefield.getSecondPlayer());
+		else if(ball.isRightOf(_gamefield.getWidth()))
+			startResetBall(_gamefield, ball, _gamefield.getFirstPlayer());
 	}
 	
-	private void startResetBall(GameField _field, BallObject _ball, PlayerObject _scoringPlayer)
+	private void startResetBall(GameField _gamefield, BallObject _ball, PlayerObject _scoringPlayer)
 	{
 		//System.out.println("RESET: " + _scoringPlayer.getPlayerIndex());
 		_scoringPlayer.alterScore(1);
 		lastScoringPlayer = _scoringPlayer;
 		ballResetStartTime = System.currentTimeMillis();
 		_ball.setVisible(false);
-		_ball.setPosition((_field.getWidth() / 2) - (_ball.getWidth() / 2), (_field.getHeight() / 2) - (_ball.getWidth() / 2));
+		_ball.setPosition((_gamefield.getWidth() / 2) - (_ball.getWidth() / 2), (_gamefield.getHeight() / 2) - (_ball.getWidth() / 2));
 		_ball.setVelocity(0, 0);
 	}
 	
@@ -98,6 +107,12 @@ public class GameLogic implements Logic{
 			_ball.setVisible(true);
 			lastScoringPlayer = null;
 		}
+	}
+	
+	private void checkWinCondition(GameField _gameField)
+	{
+		if(_gameField.getFirstPlayer().getScore() >= GameField.getWinningScore() || _gameField.getSecondPlayer().getScore() >= GameField.getWinningScore())
+			GameController.getInstance().setGameScreen(GAME_SCREEN.WINNING_SCREEN);
 	}
 	
 }
