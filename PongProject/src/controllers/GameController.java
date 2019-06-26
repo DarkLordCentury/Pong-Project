@@ -89,7 +89,7 @@ public class GameController{
 			graphics.render(currentGameScreen, gameWindow, field);
 			//Runs the logic of the current screen
 			double timeDelta = (System.currentTimeMillis() - timeDeltaLastTime) / 1000.0;
-			logic.doLogic(currentGameScreen, field, input.getInputs(), timeDelta);
+			logic.doLogic(currentGameScreen, gameWindow, field, input.getInputs(), timeDelta);
 			timeDeltaLastTime = System.currentTimeMillis();
 			//Resets inputs that need to be reset
 			input.resetInputs();

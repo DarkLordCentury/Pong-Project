@@ -9,6 +9,7 @@ import logic.GameLogic;
 import logic.Logic;
 import logic.MenuLogic;
 import logic.WinningLogic;
+import ui.GameWindow;
 import util.InputHolder;
 
 
@@ -31,10 +32,10 @@ public class LogicController {
 	 * @param _field The game fields
 	 * @param _inputs The user inputs
 	 */
-	public void doLogic(GAME_SCREEN _currGameScreen, FieldHolder _field, InputHolder _inputs, double _timeDelta)
+	public void doLogic(GAME_SCREEN _currGameScreen, GameWindow _gameWindow, FieldHolder _field, InputHolder _inputs, double _timeDelta)
 	{
 		if(logic.containsKey(_currGameScreen))
-			logic.get(_currGameScreen).doLogic(_field, _inputs, _timeDelta);
+			logic.get(_currGameScreen).doLogic(_gameWindow, _field, _inputs, _timeDelta);
 	}
 	
 	

@@ -16,7 +16,7 @@ public class MenuGraphic implements ScreenGraphic{
 	
 	//Font information for title
 	static final int TITLE_FONT_SIZE = 170;
-	static final Font TITLE_FONT = new Font(Font.MONOSPACED, Font.BOLD, TITLE_FONT_SIZE);
+	static Font TITLE_FONT = new Font(Font.MONOSPACED, Font.BOLD, TITLE_FONT_SIZE);
 	
 	@Override
 	public void draw(GameWindow _gameWindow, Graphics2D _g, FieldHolder _field) {
@@ -26,6 +26,7 @@ public class MenuGraphic implements ScreenGraphic{
 		_g.fillRect(0, 0, _gameWindow.getWidth(), _gameWindow.getHeight());
 		
 		_g.setColor(Color.WHITE);
+		TITLE_FONT = new Font(Font.MONOSPACED, Font.BOLD, (int) (TITLE_FONT_SIZE * _gameWindow.getResizedWidthPercent()));
 		_g.setFont(TITLE_FONT);
 		_g.drawString("PONG", _gameWindow.getMiddleX() - (_g.getFontMetrics(TITLE_FONT).stringWidth("PONG") / 2), 200);
 		
@@ -38,10 +39,10 @@ public class MenuGraphic implements ScreenGraphic{
 	{
 		_g.setColor(Color.WHITE);
 		_g.setFont(_button.getFont());
-		_g.drawString(_button.getButtonText(), _button.getTextX(), _button.getTextY());
+		_g.drawString(_button.getButtonText(), _button.getTextX() + _gameWindow.getResizedXOffset(), _button.getTextY());
 		
 		if(_button.isBorderVisible())
-			_g.drawRect(_button.getRectX(), _button.getRectY(), _button.getRectWidth(), _button.getRectHeight());
+			_g.drawRect(_button.getRectX() + _gameWindow.getResizedXOffset(), _button.getRectY(), _button.getRectWidth(), _button.getRectHeight());
 	}
 
 }

@@ -11,6 +11,7 @@ import gameObjects.BallObject;
 import gameObjects.MovingObject;
 import gameObjects.PlayerObject;
 import gameObjects.PlayerObject.PLAYER_INDEX;
+import ui.GameWindow;
 import util.InputHolder;
 
 public class GameLogic implements Logic{
@@ -27,7 +28,7 @@ public class GameLogic implements Logic{
 	private PlayerObject lastScoringPlayer;
 	
 	@Override
-	public void doLogic(FieldHolder _field, InputHolder _inputs, double _timeDelta)
+	public void doLogic(GameWindow _gameWindow, FieldHolder _field, InputHolder _inputs, double _timeDelta)
 	{
 		GameField gameField = _field.getGameField();
 		
@@ -56,9 +57,13 @@ public class GameLogic implements Logic{
 			_player.moveDown();
 		else
 			_player.stop();
-		
 	}
 	
+	/**
+	 * Checks if the object hits the top or bottom bounds
+	 * @param _gameField The game field
+	 * @param _object The desired object
+	 */
 	private void checkObjectBounds(GameField _gameField, MovingObject _object)
 	{
 		if(_object.isAbove(0))
@@ -67,6 +72,7 @@ public class GameLogic implements Logic{
 			_object.setPositionAbove(_gameField.getHeight());
 	}
 	
+	//Checks ball collision
 	private void checkBallCollision(GameField _gameField)
 	{
 		BallObject ball = _gameField.getBall();
@@ -83,6 +89,7 @@ public class GameLogic implements Logic{
 			ball.bounceUp();
 	}
 	
+	//Checks the score
 	private void checkScore(GameField _gameField)
 	{
 		BallObject ball = _gameField.getBall();
@@ -93,6 +100,12 @@ public class GameLogic implements Logic{
 			startResetBall(_gameField, ball, _gameField.getFirstPlayer());
 	}
 	
+	/**
+	 * Starts to reset the ball
+	 * @param _gameField The game field
+	 * @param _ball The ball
+	 * @param _scoringPlayer The player who scored
+	 */
 	private void startResetBall(GameField _gameField, BallObject _ball, PlayerObject _scoringPlayer)
 	{
 		_scoringPlayer.alterScore(1);
@@ -103,6 +116,10 @@ public class GameLogic implements Logic{
 		_ball.setVelocity(0, 0);
 	}
 	
+	/**
+	 * Resets the ball after enough time has passed
+	 * @param _ball The ball
+	 */
 	private void checkResetBall(BallObject _ball)
 	{
 		if(lastScoringPlayer != null && (System.currentTimeMillis() - ballResetStartTime) > BALL_RESET_WAIT_TIME)
@@ -116,6 +133,7 @@ public class GameLogic implements Logic{
 			if(lastScoringPlayer.getPlayerIndex() == PLAYER_INDEX.SECOND_PLAYER)
 				desiredAngle = 360 - desiredAngle;
 			
+			//Sets the ball to the desired angle
 			_ball.setToDegree(desiredAngle);
 			_ball.setVisible(true);
 			lastScoringPlayer = null;

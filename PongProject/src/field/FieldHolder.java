@@ -7,6 +7,10 @@ public class FieldHolder {
 	private MenuField menuField;
 	private GameField gameField;
 	
+	/**
+	 * Constructor for the field holder. Holds the desired fields for the game
+	 * @param _gameWindow
+	 */
 	public FieldHolder(GameWindow _gameWindow)
 	{
 		menuField = new MenuField(_gameWindow);
