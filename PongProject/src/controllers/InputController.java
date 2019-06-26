@@ -11,8 +11,13 @@ import util.InputHolder;
 
 public class InputController{
 	
+	//Holds the input
 	private InputHolder inputs;
 	
+	/**
+	 * Constructor of InputController. Reads from user input and stores it into inputs object
+	 * @param _gameWindow The current game window
+	 */
 	public InputController(GameWindow _gameWindow)
 	{
 		inputs = new InputHolder();
@@ -28,17 +33,18 @@ public class InputController{
 		{
 			@Override
 			public void keyPressed(KeyEvent _k) {
+				//Adds to the input holder
 				if(!inputs.getPressedKeys().contains(_k.getKeyCode()))
 					inputs.addPressedKey(_k.getKeyCode());
-				
-				//System.out.println(_k.getKeyChar());
 			}
 
 			@Override
 			public void keyReleased(KeyEvent _k) {
+				//Removes from input holder
 				if(inputs.getPressedKeys().contains(_k.getKeyCode()))
 					inputs.removePressedKey(_k.getKeyCode());
 				
+				//Adds to input holder
 				if(!inputs.getReleasedKeys().contains(_k.getKeyCode()))
 					inputs.addReleasedKey(_k.getKeyCode());
 			}
@@ -82,11 +88,8 @@ public class InputController{
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 				inputs.setMouseClickedX(e.getX());
 				inputs.setMouseClickedY(e.getY());
-				
-				//System.out.println(e.getX() + " : " + e.getY());
 			}
 	
 		});
@@ -104,15 +107,14 @@ public class InputController{
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				// TODO Auto-generated method stub
 				inputs.setMouseX(e.getX());
 				inputs.setMouseY(e.getY());
-				//System.out.println(e.getX() + " : " + e.getY());
 			}
 	
 		});
 	}
 	
+	/**Resets the desired user inputs*/
 	public void resetInputs()
 	{
 		inputs.resetMouseClicked();

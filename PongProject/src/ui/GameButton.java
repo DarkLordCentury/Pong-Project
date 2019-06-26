@@ -9,10 +9,9 @@ import java.awt.geom.AffineTransform;
 public abstract class GameButton {
 	
 	private static final int BORDER_SPACING = 8;
-	static final int BUTTON_FONT_SIZE = 100;
-	static final Font BUTTON_FONT = new Font(Font.MONOSPACED, Font.BOLD, BUTTON_FONT_SIZE);
 	
 	private String buttonText;
+	private Font font;
 	private int x, y;
 	//Used for text display
 	private int textX, textY;
@@ -30,9 +29,10 @@ public abstract class GameButton {
 	 * @param _y The y position of the middle of the button
 	 * @param _font The desired font being used
 	 */
-	public GameButton(String _buttonText, int _x, int _y)
+	public GameButton(String _buttonText, int _x, int _y, int _fontSize)
 	{
 		buttonText = _buttonText;
+		font = new Font(Font.MONOSPACED, Font.BOLD, _fontSize);
 		
 		x = _x;
 		y = _y;
@@ -40,8 +40,8 @@ public abstract class GameButton {
 		//Gets the text width and height
 		AffineTransform affinetransform = new AffineTransform();     
 		FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
-		textWidth = (int)(BUTTON_FONT.getStringBounds(_buttonText, frc).getWidth());
-		textHeight = (int)(BUTTON_FONT.getStringBounds(_buttonText, frc).getHeight());
+		textWidth = (int)(font.getStringBounds(_buttonText, frc).getWidth());
+		textHeight = (int)(font.getStringBounds(_buttonText, frc).getHeight());
 		
 		textX = _x - (textWidth / 2);
 		textY = _y + (textHeight / 2);
@@ -82,12 +82,12 @@ public abstract class GameButton {
 	public int getTextWidth() { return textWidth; }
 	public int getTextHeight() { return textHeight; }
 	
+	public Font getFont() { return font; }
 	public Rectangle getRectangle() { return new Rectangle(rectX, rectY, rectWidth, rectHeight); }
 	
 	public boolean isBorderVisible() { return isBorderVisible; }
 	
 	public static int getBorderSpacing() { return BORDER_SPACING; }
-	public static Font getFont() { return BUTTON_FONT; }
 	
 	public void setBorderVisible(boolean _isBorderVisible) { isBorderVisible = _isBorderVisible; }
 }

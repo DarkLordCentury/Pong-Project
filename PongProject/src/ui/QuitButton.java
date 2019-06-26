@@ -4,8 +4,8 @@ import controllers.GameController;
 
 public class QuitButton extends GameButton {
 
-	public QuitButton(String _buttonText, int _x, int _y) {
-		super(_buttonText, _x, _y);
+	public QuitButton(String _buttonText, int _x, int _y, int _fontSize) {
+		super(_buttonText, _x, _y, _fontSize);
 	}
 
 	@Override

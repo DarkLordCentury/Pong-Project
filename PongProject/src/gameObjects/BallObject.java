@@ -6,10 +6,10 @@ public class BallObject extends MovingObject{
 	
 	static final int WIDTH = 10;
 	static final int HEIGHT = 10;
-	static final int SPEED = 11;
+	static final int SPEED = 330;
 	
-	public BallObject() {
-		super(WIDTH, HEIGHT);
+	public BallObject(int _x, int _y) {
+		super(_x, _y, WIDTH, HEIGHT);
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class BallObject extends MovingObject{
 	{
 		//The area leftover when the player and ball collide
 		int collisionPossibilitySize = _player.getHeight() + this.height;
-		int collisionSize = this.y - (_player.getY() - this.height);
+		double collisionSize = this.getRectY() - (_player.getRectY() - this.height);
 		double collisionPercent = (double) collisionSize / collisionPossibilitySize;
 		
 		//The max degree the ball's direction will be for one half

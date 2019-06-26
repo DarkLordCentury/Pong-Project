@@ -38,6 +38,7 @@ public class GameGraphic implements ScreenGraphic{
 			drawMovingObject(_gameWindow, _g, gameField, moving);
 	}
 	
+	
 	private void drawBackground(GameWindow _gameWindow, Graphics2D _g, GameField _field)
 	{
 		//Colors Background
@@ -45,7 +46,7 @@ public class GameGraphic implements ScreenGraphic{
 		_g.fillRect(0, 0, _gameWindow.getWidth(), _gameWindow.getHeight());
 		
 		int topBorderY = ((_gameWindow.getHeight() - _field.getHeight()) / 2) - BORDER_HEIGHT;
-		int bottomBorderY = _gameWindow.getHeight() - ((_gameWindow.getHeight() - _field.getHeight()) / 2) + BORDER_HEIGHT;
+		int bottomBorderY = _gameWindow.getHeight() - ((_gameWindow.getHeight() - _field.getHeight()) / 2);
 		_g.setColor(Color.WHITE);
 		//Top Border
 		_g.fillRect(0, topBorderY, _gameWindow.getWidth(), BORDER_HEIGHT);
@@ -74,7 +75,7 @@ public class GameGraphic implements ScreenGraphic{
 		if(_object.isVisible())
 		{
 			_g.setColor(Color.WHITE);
-			_g.fillRect(_object.getX() + ((_gameWindow.getWidth() - _field.getWidth()) / 2), _object.getY() + ((_gameWindow.getHeight() - _field.getHeight()) / 2), _object.getWidth(), _object.getHeight());
+			_g.fillRect((int) _object.getRectX() + ((_gameWindow.getWidth() - _field.getWidth()) / 2), (int) _object.getRectY() + ((_gameWindow.getHeight() - _field.getHeight()) / 2), _object.getWidth(), _object.getHeight());
 		}
 	}
 	

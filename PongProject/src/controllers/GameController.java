@@ -7,6 +7,7 @@ import ui.GameWindow;
 
 public class GameController{
 	
+	//Enum used to switch game screen
 	public enum GAME_SCREEN
 	{
 		MENU, GAME, WINNING_SCREEN
@@ -77,6 +78,8 @@ public class GameController{
 	private void doGameLoop()
 	{
 		long lastTime = System.currentTimeMillis();
+		//The last time used for the time delta for logi
+		long timeDeltaLastTime = System.currentTimeMillis();
 		int targetFPS = 30;
 		int desiredDelay = 1000 / targetFPS;
 		
@@ -84,14 +87,17 @@ public class GameController{
 		{	
 			//Display Graphics
 			graphics.render(currentGameScreen, gameWindow, field);
-			logic.doLogic(currentGameScreen, field, input.getInputs());
+			//Runs the logic of the current screen
+			double timeDelta = (System.currentTimeMillis() - timeDeltaLastTime) / 1000.0;
+			logic.doLogic(currentGameScreen, field, input.getInputs(), timeDelta);
+			timeDeltaLastTime = System.currentTimeMillis();
+			//Resets inputs that need to be reset
 			input.resetInputs();
 			
 			//Delays the game by the desired time to ensure the desired FPS
 			long waitTime = desiredDelay - (System.currentTimeMillis() - lastTime);
 			try { if(waitTime > 0) Thread.sleep(waitTime); } catch(Exception e) { e.printStackTrace(); }
 			lastTime = System.currentTimeMillis();
-			//System.out.println(waitTime);
 		}
 	}
 	

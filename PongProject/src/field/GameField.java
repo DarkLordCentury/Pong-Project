@@ -23,12 +23,9 @@ public class GameField {
 	
 	public GameField()
 	{
-		firstPlayer = new PlayerObject(PLAYER_INDEX.FIRST_PLAYER);
-		firstPlayer.setPosition(PLAYER_X_OFFSET, (HEIGHT / 2) - (firstPlayer.getHeight() / 2));
-		secondPlayer = new PlayerObject(PLAYER_INDEX.SECOND_PLAYER);
-		secondPlayer.setPosition(WIDTH - PLAYER_X_OFFSET - secondPlayer.getWidth(), (HEIGHT / 2) - (secondPlayer.getHeight() / 2));
-		ball = new BallObject();
-		ball.setPosition((WIDTH / 2) - (ball.getWidth() / 2), (HEIGHT / 2) - (ball.getWidth() / 2));
+		firstPlayer = new PlayerObject(PLAYER_X_OFFSET, HEIGHT / 2, PLAYER_INDEX.FIRST_PLAYER);
+		secondPlayer = new PlayerObject(WIDTH - PLAYER_X_OFFSET, HEIGHT / 2, PLAYER_INDEX.SECOND_PLAYER);
+		ball = new BallObject(WIDTH / 2, HEIGHT / 2);
 		ball.setToDegree(270);
 		
 		movingObjects = new ArrayList<MovingObject>();
@@ -36,7 +33,7 @@ public class GameField {
 		movingObjects.add(secondPlayer);
 		movingObjects.add(ball);
 	}
-	
+
 	//Getters
 	public int getWidth() { return WIDTH; }
 	public int getHeight() { return HEIGHT; }

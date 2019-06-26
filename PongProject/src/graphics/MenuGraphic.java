@@ -33,11 +33,11 @@ public class MenuGraphic implements ScreenGraphic{
 		for(GameButton button : menu.getButtons())
 			drawButton(_gameWindow, _g, button);
 	}
-	
+
 	public void drawButton(GameWindow _gameWindow, Graphics2D _g, GameButton _button)
 	{
 		_g.setColor(Color.WHITE);
-		_g.setFont(GameButton.getFont());
+		_g.setFont(_button.getFont());
 		_g.drawString(_button.getButtonText(), _button.getTextX(), _button.getTextY());
 		
 		if(_button.isBorderVisible())

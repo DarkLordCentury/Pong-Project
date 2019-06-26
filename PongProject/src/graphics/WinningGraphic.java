@@ -23,7 +23,7 @@ public class WinningGraphic implements ScreenGraphic{
 	public void draw(GameWindow _gameWindow, Graphics2D _g, FieldHolder _field) {
 		
 		GameField gameField = _field.getGameField();
-		
+
 		//Colors Background
 		_g.setColor(Color.BLACK);
 		_g.fillRect(0, 0, _gameWindow.getWidth(), _gameWindow.getHeight());

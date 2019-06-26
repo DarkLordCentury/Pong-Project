@@ -18,9 +18,9 @@ public class MenuField {
 	
 	public MenuField(GameWindow _gameWindow)
 	{
-		playButton = new PlayButton("PLAY", _gameWindow.getWidth() / 2, 300);
+		playButton = new PlayButton("PLAY", _gameWindow.getWidth() / 2, 300, 100);
 		//controlsButton = new GameButton("CONTROLS", _gameWindow.getWidth() / 2, 400);
-		quitButton = new QuitButton("LEAVE", _gameWindow.getWidth() / 2, 500);
+		quitButton = new QuitButton("LEAVE", _gameWindow.getWidth() / 2, 500, 100);
 		
 		buttons = new ArrayList<GameButton>();
 		buttons.add(playButton);

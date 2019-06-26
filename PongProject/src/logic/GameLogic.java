@@ -27,7 +27,7 @@ public class GameLogic implements Logic{
 	private PlayerObject lastScoringPlayer;
 	
 	@Override
-	public void doLogic(FieldHolder _field, InputHolder _inputs)
+	public void doLogic(FieldHolder _field, InputHolder _inputs, double _timeDelta)
 	{
 		GameField gameField = _field.getGameField();
 		
@@ -41,53 +41,65 @@ public class GameLogic implements Logic{
 		checkWinCondition(_field.getGameField());
 		
 		for(MovingObject moving : gameField.getAllObjects())
-			moving.move();
+			moving.move(_timeDelta);
+		
+		checkObjectBounds(gameField, gameField.getFirstPlayer());
+		checkObjectBounds(gameField, gameField.getSecondPlayer());
+		checkObjectBounds(gameField, gameField.getBall());
 	}
 	
-	private void checkPlayerInputs(Set<Integer> _inputs, GameField _gamefield, PlayerObject _player, int _up, int _down)
+	private void checkPlayerInputs(Set<Integer> _inputs, GameField _gameField, PlayerObject _player, int _up, int _down)
 	{
 		if(_inputs.contains(_up) && !_player.isAbove(0))
 			_player.moveUp();
-		else if(_inputs.contains(_down) && !_player.isBelow(_gamefield.getHeight()))
+		else if(_inputs.contains(_down) && !_player.isBelow(_gameField.getHeight()))
 			_player.moveDown();
 		else
 			_player.stop();
+		
 	}
 	
-	private void checkBallCollision(GameField _gamefield)
+	private void checkObjectBounds(GameField _gameField, MovingObject _object)
 	{
-		BallObject ball = _gamefield.getBall();
+		if(_object.isAbove(0))
+			_object.setPositionBelow(0);
+		else if(_object.isBelow(_gameField.getHeight()))
+			_object.setPositionAbove(_gameField.getHeight());
+	}
+	
+	private void checkBallCollision(GameField _gameField)
+	{
+		BallObject ball = _gameField.getBall();
 		//Checks if ball is colliding with players.
-		if(ball.isColliding(_gamefield.getFirstPlayer()))
-			ball.bouncePlayer(_gamefield.getFirstPlayer());
-		else if(ball.isColliding(_gamefield.getSecondPlayer()))
-			ball.bouncePlayer(_gamefield.getSecondPlayer());
+		if(ball.isColliding(_gameField.getFirstPlayer()))
+			ball.bouncePlayer(_gameField.getFirstPlayer());
+		else if(ball.isColliding(_gameField.getSecondPlayer()))
+			ball.bouncePlayer(_gameField.getSecondPlayer());
 		
 		//Checks if ball is hitting top and bottom limits
 		if(ball.isAbove(0))
 			ball.bounceDown();
-		else if (ball.isBelow(_gamefield.getHeight()))
+		else if (ball.isBelow(_gameField.getHeight()))
 			ball.bounceUp();
 	}
 	
-	private void checkScore(GameField _gamefield)
+	private void checkScore(GameField _gameField)
 	{
-		BallObject ball = _gamefield.getBall();
+		BallObject ball = _gameField.getBall();
 		
 		if(ball.isLeftOf(0))
-			startResetBall(_gamefield, ball, _gamefield.getSecondPlayer());
-		else if(ball.isRightOf(_gamefield.getWidth()))
-			startResetBall(_gamefield, ball, _gamefield.getFirstPlayer());
+			startResetBall(_gameField, ball, _gameField.getSecondPlayer());
+		else if(ball.isRightOf(_gameField.getWidth()))
+			startResetBall(_gameField, ball, _gameField.getFirstPlayer());
 	}
 	
-	private void startResetBall(GameField _gamefield, BallObject _ball, PlayerObject _scoringPlayer)
+	private void startResetBall(GameField _gameField, BallObject _ball, PlayerObject _scoringPlayer)
 	{
-		//System.out.println("RESET: " + _scoringPlayer.getPlayerIndex());
 		_scoringPlayer.alterScore(1);
 		lastScoringPlayer = _scoringPlayer;
 		ballResetStartTime = System.currentTimeMillis();
 		_ball.setVisible(false);
-		_ball.setPosition((_gamefield.getWidth() / 2) - (_ball.getWidth() / 2), (_gamefield.getHeight() / 2) - (_ball.getWidth() / 2));
+		_ball.setPosition((_gameField.getWidth() / 2) - (_ball.getWidth() / 2), (_gameField.getHeight() / 2) - (_ball.getWidth() / 2));
 		_ball.setVelocity(0, 0);
 	}
 	
@@ -100,6 +112,7 @@ public class GameLogic implements Logic{
 			double degreePercent = ran.nextDouble();
 			int desiredAngle = (int) (BALL_RESET_DEGREE_FULL_RANGE * degreePercent)  + (90 - BALL_RESET_DEGREE_MAX);
 			
+			//Switches directions if it is the second player
 			if(lastScoringPlayer.getPlayerIndex() == PLAYER_INDEX.SECOND_PLAYER)
 				desiredAngle = 360 - desiredAngle;
 			

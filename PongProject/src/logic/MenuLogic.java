@@ -7,7 +7,7 @@ import util.InputHolder;
 public class MenuLogic implements Logic{
 
 	@Override
-	public void doLogic(FieldHolder _field, InputHolder _inputs) {
+	public void doLogic(FieldHolder _field, InputHolder _inputs, double _timeDelta) {
 		
 		for(GameButton button : _field.getMenuField().getButtons())
 		{

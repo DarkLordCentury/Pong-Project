@@ -5,8 +5,8 @@ import controllers.GameController.GAME_SCREEN;
 
 public class PlayButton extends GameButton{
 
-	public PlayButton(String _buttonText, int _x, int _y) {
-		super(_buttonText, _x, _y);
+	public PlayButton(String _buttonText, int _x, int _y, int _fontSize) {
+		super(_buttonText, _x, _y, _fontSize);
 	}
 
 	@Override

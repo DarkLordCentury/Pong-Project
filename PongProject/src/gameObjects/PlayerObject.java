@@ -12,7 +12,7 @@ public class PlayerObject extends MovingObject{
 	static final int WIDTH = 8;
 	static final int HEIGHT = 60;
 	//Player Movement Speed
-	static final int SPEED = 10;
+	static final int SPEED = 300;
 	
 	//Dictates whether it is the first or second player
 	private PLAYER_INDEX playerIndex;
@@ -23,9 +23,9 @@ public class PlayerObject extends MovingObject{
 	 * Constructor for player object
 	 * @param _playerIndex Dictates whether it is the first or second player
 	 */
-	public PlayerObject(PLAYER_INDEX _playerIndex) 
+	public PlayerObject(int _x, int _y, PLAYER_INDEX _playerIndex) 
 	{
-		super(WIDTH, HEIGHT);
+		super(_x, _y, WIDTH, HEIGHT);
 		
 		playerIndex = _playerIndex;
 		score = 0;
