@@ -16,4 +16,5 @@ Move Down: S
   
 Player 2:   
 Move Up: Up Arrow Key  
-Move Down: Down Arrow Key 
+Move Down: Down Arrow Key  
+First to 4 wins!
