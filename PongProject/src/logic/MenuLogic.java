@@ -12,17 +12,15 @@ public class MenuLogic implements Logic{
 		
 		for(GameButton button : _field.getMenuField().getButtons())
 		{
-			if(button.isColliding(_inputs.getMouseX() - _gameWindow.getResizedXOffset(), _inputs.getMouseY()))
+			if(button.isColliding(_inputs.getMouseX(), _inputs.getMouseY()))
 				button.setBorderVisible(true);
 			else
 				button.setBorderVisible(false);
 			
-			if(button.isColliding(_inputs.getMouseClickedX() - _gameWindow.getResizedXOffset(), _inputs.getMouseClickedY()))
+			if(button.isColliding(_inputs.getMouseClickedX(), _inputs.getMouseClickedY()))
 				button.onClick();
 		}
 		
 	}
-	
-	
 
 }

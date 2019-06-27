@@ -8,17 +8,17 @@ import java.awt.geom.AffineTransform;
 
 public abstract class GameButton {
 	
-	private static final int BORDER_SPACING = 8;
+	private static final int BORDER_SPACING = 0;
 	
 	private String buttonText;
+	private int originalFontSize;
 	private Font font;
 	private int x, y;
 	//Used for text display
-	private int textX, textY;
-	private int textWidth, textHeight;
+	/*private int textX, textY;*/
 	//Used for collision detection
 	private int rectX, rectY;
-	private int rectWidth, rectHeight;
+	//private int rectWidth, rectHeight;
 	//Holds whether or not the border is visible
 	private boolean isBorderVisible;
 	
@@ -32,12 +32,17 @@ public abstract class GameButton {
 	public GameButton(String _buttonText, int _x, int _y, int _fontSize)
 	{
 		buttonText = _buttonText;
+		originalFontSize = _fontSize;
 		font = new Font(Font.MONOSPACED, Font.BOLD, _fontSize);
 		
 		x = _x;
 		y = _y;
 		
-		//Gets the text width and height
+		rectX = x - (getTextWidth() / 2) - BORDER_SPACING;
+		rectY = y;
+		
+		/*
+		 * //Gets the text width and height
 		AffineTransform affinetransform = new AffineTransform();     
 		FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
 		textWidth = (int)(font.getStringBounds(_buttonText, frc).getWidth());
@@ -51,7 +56,7 @@ public abstract class GameButton {
 		rectY = _y;
 		
 		rectWidth = textWidth + (BORDER_SPACING * 2);
-		rectHeight = (textHeight / 2) + BORDER_SPACING;
+		rectHeight = (textHeight / 2) + BORDER_SPACING;*/
 		
 		isBorderVisible = false;
 	}
@@ -75,19 +80,32 @@ public abstract class GameButton {
 	public int getY() { return y; }
 	public int getRectX() { return rectX; }
 	public int getRectY() { return rectY; }
-	public int getRectWidth() { return rectWidth; }
-	public int getRectHeight() { return rectHeight; }
-	public int getTextX() { return textX; }
-	public int getTextY() { return textY; }
-	public int getTextWidth() { return textWidth; }
-	public int getTextHeight() { return textHeight; }
+	public int getRectWidth() { return getTextWidth() + (BORDER_SPACING * 2); }
+	public int getRectHeight() { return (int) (getTextHeight() / 1.9) + BORDER_SPACING; }
+	public int getTextX() { return x - getTextWidth() / 2; }
+	public int getTextY() { return y + getTextHeight() / 2; }
+	public int getTextWidth() 
+	{ 
+		AffineTransform affinetransform = new AffineTransform();     
+		FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
+		return (int)(font.getStringBounds(buttonText, frc).getWidth());
+	}
+	public int getTextHeight() 
+	{ 
+		AffineTransform affinetransform = new AffineTransform();     
+		FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
+		return (int)(font.getStringBounds(buttonText, frc).getHeight());
+	}
 	
+	public int getOriginalFontSize() { return originalFontSize; }
 	public Font getFont() { return font; }
-	public Rectangle getRectangle() { return new Rectangle(rectX, rectY, rectWidth, rectHeight); }
+	public Rectangle getRectangle() { return new Rectangle(getRectX(), getRectY(), getRectWidth(), getRectHeight()); }
 	
 	public boolean isBorderVisible() { return isBorderVisible; }
 	
 	public static int getBorderSpacing() { return BORDER_SPACING; }
 	
+	public void setFontSize(int _fontSize) { font = new Font(Font.MONOSPACED, Font.BOLD, _fontSize); }
+	public void setRectPosition(int _x, int _y) { rectX = _x; rectY = _y; }
 	public void setBorderVisible(boolean _isBorderVisible) { isBorderVisible = _isBorderVisible; }
 }

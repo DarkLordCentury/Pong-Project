@@ -25,10 +25,12 @@ public class MenuGraphic implements ScreenGraphic{
 		_g.setColor(Color.BLACK);
 		_g.fillRect(0, 0, _gameWindow.getWidth(), _gameWindow.getHeight());
 		
+		double resizePercent = Math.min(_gameWindow.getResizedHeightPercent(), _gameWindow.getResizedWidthPercent());
+		
 		_g.setColor(Color.WHITE);
-		TITLE_FONT = new Font(Font.MONOSPACED, Font.BOLD, (int) (TITLE_FONT_SIZE * _gameWindow.getResizedWidthPercent()));
+		TITLE_FONT = new Font(Font.MONOSPACED, Font.BOLD, (int) (TITLE_FONT_SIZE * resizePercent));
 		_g.setFont(TITLE_FONT);
-		_g.drawString("PONG", _gameWindow.getMiddleX() - (_g.getFontMetrics(TITLE_FONT).stringWidth("PONG") / 2), 200);
+		_g.drawString("PONG", _gameWindow.getMiddleX() - (_g.getFontMetrics(TITLE_FONT).stringWidth("PONG") / 2), _gameWindow.resizeY(200));
 		
 		MenuField menu = _field.getMenuField();
 		for(GameButton button : menu.getButtons())
@@ -37,12 +39,18 @@ public class MenuGraphic implements ScreenGraphic{
 
 	public void drawButton(GameWindow _gameWindow, Graphics2D _g, GameButton _button)
 	{
+		double resizePercent = Math.min(_gameWindow.getResizedHeightPercent(), _gameWindow.getResizedWidthPercent());
+		_button.setFontSize((int) (_button.getOriginalFontSize() * resizePercent));
+		
 		_g.setColor(Color.WHITE);
 		_g.setFont(_button.getFont());
-		_g.drawString(_button.getButtonText(), _button.getTextX() + _gameWindow.getResizedXOffset(), _button.getTextY());
+		int x = _button.getTextX() + _gameWindow.getResizedXOffset();
+		int y = 10 + _gameWindow.resizeY(_button.getTextY());
+		_g.drawString(_button.getButtonText(), x, y);
+		
+		_button.setRectPosition(x, (int) (y - _button.getTextHeight() / 2.1));
 		
 		if(_button.isBorderVisible())
-			_g.drawRect(_button.getRectX() + _gameWindow.getResizedXOffset(), _button.getRectY(), _button.getRectWidth(), _button.getRectHeight());
+			_g.drawRect(_button.getRectX(), _button.getRectY(), _button.getRectWidth(), _button.getRectHeight());
 	}
-
 }

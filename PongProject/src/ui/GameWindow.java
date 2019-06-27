@@ -24,6 +24,16 @@ public class GameWindow extends JFrame{
 		//this.setResizable(false);
 	}
 	
+	public int resizeX(int _x)
+	{
+		return (int) (this.getMiddleX() - (((this.getPreferredSize().getWidth() / 2) - _x) * this.getResizedWidthPercent()));
+	}
+	
+	public int resizeY(int _y)
+	{
+		return (int) (this.getMiddleY() - (((this.getPreferredSize().getHeight() / 2) - _y) * this.getResizedHeightPercent()));
+	}
+	
 	//Getters
 	public int getMiddleX() { return getWidth() / 2; }
 	public int getMiddleY() { return getHeight() / 2; }
