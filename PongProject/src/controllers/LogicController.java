@@ -31,6 +31,7 @@ public class LogicController {
 	 * @param _currGameScreen The current screen
 	 * @param _field The game fields
 	 * @param _inputs The user inputs
+	 * @param _timeDelta The time that has passed in ms since the first frame
 	 */
 	public void doLogic(GAME_SCREEN _currGameScreen, GameWindow _gameWindow, FieldHolder _field, InputHolder _inputs, double _timeDelta)
 	{

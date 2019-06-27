@@ -8,17 +8,13 @@ import java.awt.geom.AffineTransform;
 
 public abstract class GameButton {
 	
-	private static final int BORDER_SPACING = 0;
-	
+	//Button variables
 	private String buttonText;
 	private int originalFontSize;
 	private Font font;
 	private int x, y;
-	//Used for text display
-	/*private int textX, textY;*/
 	//Used for collision detection
 	private int rectX, rectY;
-	//private int rectWidth, rectHeight;
 	//Holds whether or not the border is visible
 	private boolean isBorderVisible;
 	
@@ -38,25 +34,8 @@ public abstract class GameButton {
 		x = _x;
 		y = _y;
 		
-		rectX = x - (getTextWidth() / 2) - BORDER_SPACING;
+		rectX = x - (getTextWidth() / 2);
 		rectY = y;
-		
-		/*
-		 * //Gets the text width and height
-		AffineTransform affinetransform = new AffineTransform();     
-		FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
-		textWidth = (int)(font.getStringBounds(_buttonText, frc).getWidth());
-		textHeight = (int)(font.getStringBounds(_buttonText, frc).getHeight());
-		
-		textX = _x - (textWidth / 2);
-		textY = _y + (textHeight / 2);
-		
-		//Gets collision rectangle variables
-		rectX = _x - (textWidth / 2) - BORDER_SPACING;
-		rectY = _y;
-		
-		rectWidth = textWidth + (BORDER_SPACING * 2);
-		rectHeight = (textHeight / 2) + BORDER_SPACING;*/
 		
 		isBorderVisible = false;
 	}
@@ -80,16 +59,18 @@ public abstract class GameButton {
 	public int getY() { return y; }
 	public int getRectX() { return rectX; }
 	public int getRectY() { return rectY; }
-	public int getRectWidth() { return getTextWidth() + (BORDER_SPACING * 2); }
-	public int getRectHeight() { return (int) (getTextHeight() / 1.9) + BORDER_SPACING; }
+	public int getRectWidth() { return getTextWidth(); }
+	public int getRectHeight() { return (int) (getTextHeight() / 1.9); }
 	public int getTextX() { return x - getTextWidth() / 2; }
 	public int getTextY() { return y + getTextHeight() / 2; }
+	/**Calculates the width of the text using the font*/
 	public int getTextWidth() 
 	{ 
 		AffineTransform affinetransform = new AffineTransform();     
 		FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
 		return (int)(font.getStringBounds(buttonText, frc).getWidth());
 	}
+	/**Calculates the height of the text using the font*/
 	public int getTextHeight() 
 	{ 
 		AffineTransform affinetransform = new AffineTransform();     
@@ -99,12 +80,12 @@ public abstract class GameButton {
 	
 	public int getOriginalFontSize() { return originalFontSize; }
 	public Font getFont() { return font; }
+	//Used for collision detection
 	public Rectangle getRectangle() { return new Rectangle(getRectX(), getRectY(), getRectWidth(), getRectHeight()); }
 	
 	public boolean isBorderVisible() { return isBorderVisible; }
 	
-	public static int getBorderSpacing() { return BORDER_SPACING; }
-	
+	//Setters
 	public void setFontSize(int _fontSize) { font = new Font(Font.MONOSPACED, Font.BOLD, _fontSize); }
 	public void setRectPosition(int _x, int _y) { rectX = _x; rectY = _y; }
 	public void setBorderVisible(boolean _isBorderVisible) { isBorderVisible = _isBorderVisible; }

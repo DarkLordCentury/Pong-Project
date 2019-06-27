@@ -32,6 +32,8 @@ public class GameLogic implements Logic{
 	{
 		GameField gameField = _field.getGameField();
 		
+		//87 is w and 83 is s
+		//38 is arrow up and 40 is arrow down
 		checkPlayerInputs(_inputs.getPressedKeys(), gameField, gameField.getFirstPlayer(), 87, 83);
 		checkPlayerInputs(_inputs.getPressedKeys(), gameField, gameField.getSecondPlayer(), 38, 40);
 		
@@ -39,16 +41,17 @@ public class GameLogic implements Logic{
 		checkScore(gameField);
 		checkResetBall(gameField.getBall());
 		
-		checkWinCondition(_field.getGameField());
-		
 		for(MovingObject moving : gameField.getAllObjects())
 			moving.move(_timeDelta);
 		
 		checkObjectBounds(gameField, gameField.getFirstPlayer());
 		checkObjectBounds(gameField, gameField.getSecondPlayer());
 		checkObjectBounds(gameField, gameField.getBall());
+		
+		checkWinCondition(_field.getGameField());
 	}
 	
+	//Moves the player depending on the inputs
 	private void checkPlayerInputs(Set<Integer> _inputs, GameField _gameField, PlayerObject _player, int _up, int _down)
 	{
 		if(_inputs.contains(_up) && !_player.isAbove(0))
@@ -140,10 +143,14 @@ public class GameLogic implements Logic{
 		}
 	}
 	
+	//Changes screen to win screen if player has won
 	private void checkWinCondition(GameField _gameField)
 	{
 		if(_gameField.getFirstPlayer().getScore() >= GameField.getWinningScore() || _gameField.getSecondPlayer().getScore() >= GameField.getWinningScore())
+		{
 			GameController.getInstance().setGameScreen(GAME_SCREEN.WINNING_SCREEN);
+			lastScoringPlayer = null;
+		}
 	}
 	
 }

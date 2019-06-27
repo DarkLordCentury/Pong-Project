@@ -16,11 +16,14 @@ public class WinningLogic implements Logic{
 	@Override
 	public void doLogic(GameWindow _gameWindow, FieldHolder _field, InputHolder _inputs, double _timeDelta) {
 		
+		//If there is no current start time then set the start time
 		if(startTime == -1)
 			startTime = System.currentTimeMillis();
 		
+		//Read user input after desired time has passed
 		if(!_inputs.getReleasedKeys().isEmpty() && System.currentTimeMillis() - startTime > PRESS_DELAY)
 		{
+			//Reset start time
 			startTime = -1;
 			GameController.getInstance().setGameScreen(GAME_SCREEN.MENU);
 		}

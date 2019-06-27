@@ -11,6 +11,7 @@ public class PlayButton extends GameButton{
 
 	@Override
 	public void onClick() {
+		//Start the pong game
 		GameController.getInstance().setGameScreen(GAME_SCREEN.GAME);
 	}
 

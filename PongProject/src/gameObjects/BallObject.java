@@ -50,6 +50,7 @@ public class BallObject extends MovingObject{
 		if(_player.getPlayerIndex() == PLAYER_INDEX.SECOND_PLAYER)
 			desiredDegree = 360 - desiredDegree;
 		
+		//Sets the ball to the desired degree
 		setToDegree(desiredDegree);
 	}
 	

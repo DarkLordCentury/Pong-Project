@@ -12,11 +12,13 @@ public class MenuLogic implements Logic{
 		
 		for(GameButton button : _field.getMenuField().getButtons())
 		{
+			//Checks if mouse is on top of a button. If it is then show border
 			if(button.isColliding(_inputs.getMouseX(), _inputs.getMouseY()))
 				button.setBorderVisible(true);
 			else
 				button.setBorderVisible(false);
 			
+			//Runs click function if button is clicked
 			if(button.isColliding(_inputs.getMouseClickedX(), _inputs.getMouseClickedY()))
 				button.onClick();
 		}

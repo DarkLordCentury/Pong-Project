@@ -34,10 +34,12 @@ public class GameController{
 	
 	public GameController()
 	{
+		//Ensures there is only one instance of game controller
 		if(INSTANCE != null)
 			INSTANCE.gameWindow.dispatchEvent(new WindowEvent(INSTANCE.gameWindow, WindowEvent.WINDOW_CLOSING));
 		
 		INSTANCE = this;
+		//Sets the default screen
 		currentGameScreen = GAME_SCREEN.MENU;
 	}
 	
@@ -51,6 +53,7 @@ public class GameController{
 		input = new InputController(gameWindow);
 		logic = new LogicController();
 		
+		//Starts the game loop
 		startThread();
 	}
 	
